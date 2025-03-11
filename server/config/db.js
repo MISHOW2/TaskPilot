@@ -7,8 +7,16 @@ const users = [
     password: "123456",  // Use plain text for now, hash later
   }
 ];
-
-const tasks =[]
+const tasks = {
+  "user1@email.com": [
+    { taskId: 1, userId: 1, title: "Complete React project", description: "Finish the dashboard UI", completed: false, dueDate: "2025-03-15" },
+    { taskId: 2, userId: 1, title: "Write API documentation", description: "Document all endpoints", completed: true, dueDate: "2025-03-12" }
+  ],
+  "user2@email.com": [
+    { taskId: 1, userId: 2, title: "Prepare for meeting", description: "Create presentation slides", completed: false, dueDate: "2025-03-18" },
+    { taskId: 2, userId: 2, title: "Fix login bug", description: "Resolve authentication issue", completed: false, dueDate: "2025-03-16" }
+  ]
+};
 
 // Function to simulate auto-increment ID
 let userId = users.length + 1;
