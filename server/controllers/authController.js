@@ -45,7 +45,7 @@ const login = async (req, res) => {
   if (!user) {
     return res.status(400).json({
       success: false,
-      errors: [{ msg: "Invalid credentials" }] // Changed message to "Invalid credentials"
+      errors: [{ msg: "Invalid credentials" }] 
     });
   }
 
