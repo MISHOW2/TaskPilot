@@ -8,6 +8,8 @@ const users = [
   }
 ];
 
+const tasks =[]
+
 // Function to simulate auto-increment ID
 let userId = users.length + 1;
 
@@ -30,6 +32,7 @@ const getAllUsers = () => {
 };
 
 module.exports = {
+  tasks,
   users,
   addUser,
   getUserByEmail,
