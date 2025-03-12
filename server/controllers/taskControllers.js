@@ -54,6 +54,28 @@ const getAllTasks = (req, res) => {
 
 // Get a single task by ID
 const getTaskById = (req, res) => {
+  const { id } = req.params;  // Extract task ID from the URL
+  const userEmail = req.user.email;
+
+  // Log to check if ID is being passed correctly
+  console.log('Task ID:', id);  // This should print the task ID
+
+  if (!tasks[userEmail]) {
+    return res.status(404).json({ success: false, msg: 'No tasks found for this user' });
+  }
+
+  const task = tasks[userEmail].find(task => task.taskId === parseInt(id));
+
+  if (!task) {
+    return res.status(404).json({ success: false, msg: 'Task not found' });
+  }
+
+  res.json({ success: true, msg: 'Task fetched successfully', task });
+};
+
+
+
+const updateTask = (req, res) => {
   const { id } = req.params;
   const userEmail = req.user.email;
 
@@ -70,4 +92,27 @@ const getTaskById = (req, res) => {
   res.json({ success: true, msg: 'Task fetched successfully', task });
 };
 
-module.exports = { addTask, getAllTasks, getTaskById };
+const deleteTask = (req, res) => {
+  const { id } = req.params;  // Task ID from URL
+  const userEmail = req.user.email; // Get user email from token
+
+  // Check if user has tasks
+  if (!tasks[userEmail]) {
+    return res.status(404).json({ success: false, msg: 'No tasks found for this user' });
+  }
+
+  // Find task index
+  const taskIndex = tasks[userEmail].findIndex(task => task.taskId === parseInt(id));
+
+  if (taskIndex === -1) {
+    return res.status(404).json({ success: false, msg: 'Task not found' });
+  }
+
+  // Remove task
+  tasks[userEmail].splice(taskIndex, 1);
+
+  res.json({ success: true, msg: 'Task deleted successfully' });
+};
+
+
+module.exports = { addTask, getAllTasks, getTaskById,updateTask,deleteTask };

@@ -11,7 +11,7 @@ const authenticateToken = (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
-    console.log("Extracted Token:", token); // Debugging
+   
 
     // Verify the token
     jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {

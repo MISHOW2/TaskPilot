@@ -13,3 +13,4 @@
 # Build files
 /server/dist
 /client/build
+.qodo
