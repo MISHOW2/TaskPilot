@@ -1,6 +1,5 @@
 /* General Styles */
 
-
 /* App Title */
 .app-title {
   color: #1F9BF3;
@@ -14,17 +13,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
+  padding: 20px;
 }
-.google-login-btn{
+
+/* Google Login Button */
+.google-login-btn {
   display: flex;
-  gap:40px;
+  gap: 40px;
   font-weight: bold;
   font-size: 11px;
 }
-.google-login-btn img{
-  width: 30px;
 
+.google-login-btn img {
+  width: 30px;
 }
+
 /* Login Wrapper */
 .login-wrapper {
   display: flex;
@@ -36,6 +40,7 @@
   width: 100%;
   justify-content: space-between;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 /* Login Form */
@@ -150,13 +155,13 @@
   align-items: center;
   gap: 10px;
 }
-.feature-container{
+.feature-container {
   display: flex;
   gap: 20px;
   align-items: top;
 }
 
-.feature-icon{
+.feature-icon {
   width: 40px;
   height: 40px;
 }
@@ -182,8 +187,8 @@ span:hover {
   color: #1F9BF3;
 }
 
-.forgot-password{
-  text-align:left;
+.forgot-password {
+  text-align: left;
   font-size: 14px;
   color: #1F9BF3;
 }
@@ -193,10 +198,71 @@ span:hover {
   .login-wrapper {
     flex-direction: column;
     align-items: center;
+    padding: 20px;
+    gap: 10px;
   }
 
   .features-section {
     width: 100%;
     text-align: center;
+    padding: 10px;
+    gap: 40px;
+  }
+
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .google-login-btn {
+    font-size: 14px;
+    gap: 20px;
+  }
+
+  .login-btn {
+    font-size: 18px;
+    padding: 15px;
+  }
+
+  /* Adjust App Title */
+  .app-title {
+    font-size: 24px;
+  }
+
+  /* Adjust Input Fields */
+  .input-field {
+    padding: 12px 10px 12px 40px;
+    font-size: 16px;
+  }
+
+  /* Adjust Login Button */
+  .login-btn {
+    padding: 12px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Further small screen adjustments */
+  .login-container {
+    padding: 10px;
+  }
+
+  .google-login-btn {
+    width: 100%;
+  }
+
+  .input-container {
+    max-width: 100%;
+  }
+
+  .input-field {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .login-btn {
+    font-size: 16px;
+    padding: 12px;
   }
 }
