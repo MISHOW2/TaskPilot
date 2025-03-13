@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/login.css';
 import { google } from '../assets/icons/icons';
-import { signup, login, googleAuth } from '../api/authServices';
+import { signup, login } from '../api/authServices';
 import { useNavigate } from "react-router-dom";
 
 function LoginWrapper() {
@@ -10,59 +10,58 @@ function LoginWrapper() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
-
-    if (token) {
-      localStorage.setItem("authToken", token);
-      navigate("/dashboard"); // Redirect to dashboard after login
-    }
-  }, []);
-
+ const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
+  e.preventDefault();
+  setError(null);
 
-    if (!email || !password) {
-      setError("Email and password are required.");
-      return;
-    }
+  if (!email || !password) {
+    setError("Email and password are required.");
+    return;
+  }
 
-    if (!isLogin && (!fullName || password !== confirmPassword)) {
-      setError("Please fill in all fields correctly.");
-      return;
-    }
+  if (!isLogin && (!fullName || password !== confirmPassword)) {
+    setError("Please fill in all fields correctly.");
+    return;
+  }
 
-    try {
-      if (isLogin) {
-        const response = await login(email, password);
-        console.log("Login successful:", response);
-        localStorage.setItem("authToken", response.token);
-        navigate("/dashboard");
+  try {
+    if (isLogin) {
+      const response = await login(email, password);
+      console.log("Login successful:", response);
+
+      // Save token or user info to localStorage if "Remember me" is checked
+      if (document.getElementById("rememberMe").checked) {
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password); // Optionally save the password (not recommended for security reasons)
       } else {
-        const response = await signup(fullName, email, password);
-        console.log("Signup successful:", response);
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
       }
-    } catch (error) {
-      setError(isLogin ? "Login failed. Try again." : "Signup failed. Try again.");
+
+      // Redirect to dashboard
+      navigate("/dashboard");
+    } else {
+      const response = await signup(fullName, email, password);
+      console.log("Signup successful:", response);
     }
-  };
+  } catch (error) {
+    setError(isLogin ? "Login failed. Try again." : "Signup failed. Try again.");
+  }
+};
+
+  
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       {error && <p className="error-message">{error}</p>}
 
-      {/* 🔹 Google Login Button */}
-      <button className="google-login-btn" onClick={googleAuth}>
+      <button className="google-login-btn">
         <img src={google} alt="google-icon" className="google-icon" />
         {isLogin ? "Login" : "Sign Up"} with Google
       </button>
-
       <p className="divider-text">or</p>
 
       {!isLogin && (
@@ -121,9 +120,18 @@ function LoginWrapper() {
         </div>
       )}
 
+      {isLogin && (
+        <div className="remember-me">
+          <input type="checkbox" id="rememberMe" />
+          <label htmlFor="rememberMe">Remember me</label>
+        </div>
+      )}
+
       <button type="submit" className="login-btn">
         {isLogin ? "Log in" : "Sign Up"}
       </button>
+
+    
 
       <div>
         {isLogin ? (
