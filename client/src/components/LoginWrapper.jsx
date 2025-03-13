@@ -10,39 +10,49 @@ function LoginWrapper() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
+
+ const [error, setError] = useState(null);
   const navigate = useNavigate(); 
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
+  e.preventDefault();
+  setError(null);
 
-    if (!email || !password) {
-      setError("Email and password are required.");
-      return;
-    }
-   
-    
+  if (!email || !password) {
+    setError("Email and password are required.");
+    return;
+  }
 
-    if (!isLogin && (!fullName || password !== confirmPassword)) {
-      setError("Please fill in all fields correctly.");
-      return;
-    }
+  if (!isLogin && (!fullName || password !== confirmPassword)) {
+    setError("Please fill in all fields correctly.");
+    return;
+  }
 
-    try {
-      if (isLogin) {
-        const response = await login(email, password);
-        console.log("Login successful:", response);
-       
-        navigate("/dashboard")
+  try {
+    if (isLogin) {
+      const response = await login(email, password);
+      console.log("Login successful:", response);
+
+      // Save token or user info to localStorage if "Remember me" is checked
+      if (document.getElementById("rememberMe").checked) {
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password); // Optionally save the password (not recommended for security reasons)
       } else {
-        const response = await signup(fullName, email, password);
-        console.log("Signup successful:", response);
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
       }
-    } catch (error) {
-      setError(isLogin ? "Login failed. Try again." : "Signup failed. Try again.");
+
+      // Redirect to dashboard
+      navigate("/dashboard");
+    } else {
+      const response = await signup(fullName, email, password);
+      console.log("Signup successful:", response);
     }
-  };
+  } catch (error) {
+    setError(isLogin ? "Login failed. Try again." : "Signup failed. Try again.");
+  }
+};
+
+  
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
