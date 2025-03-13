@@ -1,7 +1,10 @@
 const passport = require("passport");
+const dotenv = require('dotenv');
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const users = []; // Mock database
+const users = require("./db"); // Import the local users array
 
+
+dotenv.config();
 passport.use(
   new GoogleStrategy(
     {
@@ -19,7 +22,7 @@ passport.use(
           fullName: profile.displayName,
           email: profile.emails[0].value,
         };
-        users.push(user);
+        users.push(user); // Save new user to local array
       }
 
       return done(null, user);

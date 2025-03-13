@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/login.css';
 import { google } from '../assets/icons/icons';
-import { signup, login } from '../api/authServices';
+import { signup, login ,googleAuth} from '../api/authServices';
 import { useNavigate } from "react-router-dom";
 
 function LoginWrapper() {
@@ -58,7 +58,7 @@ function LoginWrapper() {
     <form className="login-form" onSubmit={handleSubmit}>
       {error && <p className="error-message">{error}</p>}
 
-      <button className="google-login-btn">
+      <button className="google-login-btn" onClick={googleAuth}>
         <img src={google} alt="google-icon" className="google-icon" />
         {isLogin ? "Login" : "Sign Up"} with Google
       </button>
