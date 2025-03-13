@@ -197,6 +197,7 @@ span:hover {
 @media (max-width: 768px) {
   .login-wrapper {
     flex-direction: column;
+    box-shadow: none;
     align-items: center;
     padding: 20px;
     gap: 10px;
@@ -204,7 +205,7 @@ span:hover {
 
   .features-section {
     width: 100%;
-    text-align: center;
+  
     padding: 10px;
     gap: 40px;
   }
