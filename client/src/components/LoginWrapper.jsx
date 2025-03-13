@@ -131,7 +131,7 @@ function LoginWrapper() {
         {isLogin ? "Log in" : "Sign Up"}
       </button>
 
-      <p className="forgot-password">Forgot password?</p>
+    
 
       <div>
         {isLogin ? (
