@@ -1,76 +1,60 @@
-// controllers/authController.js
 const bcrypt = require('bcrypt');
-const { users } = require('../config/db');
-require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const { users } = require('../config/db');
+const generateToken = require('../utils/generateToken');
+const passport = require('passport');
 
+// User Signup
 const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
-  const user = users.find(user => user.email === email); // Check if the user already exists
+  const existingUser = users.find(user => user.email === email);
 
-  if (user) {
-    return res.status(400).json({
-      success: false,
-      errors: [{ msg: "User already exists" }] // Changed message to "User already exists"
-    });
+  if (existingUser) {
+    return res.status(400).json({ success: false, msg: "User already exists." });
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const userId = users.length + 1;
 
-  users.push({
-    userId: users.length + 1, // Generate userId
-    fullName,
-    email,
-    password: hashedPassword // Save hashed password
-  });
+  const newUser = { userId, fullName, email, password: hashedPassword };
+  users.push(newUser);
 
-  // Create JWT token
-  const payload = { userId: users.length, email };
-  const secret = process.env.JWT_SECRET_KEY;
-
-  const token = jwt.sign(payload, secret, { expiresIn: '1h' }); // Create the token with expiration
-
-  // Send the response with token
-  res.json({
+  res.status(201).json({
     success: true,
     msg: "User registered successfully!",
-    token
+    token: generateToken(userId, email)
   });
 };
 
+// User Login
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const user = users.find(user => user.email === email); // Find user by email
+  const user = users.find(user => user.email === email);
 
   if (!user) {
-    return res.status(400).json({
-      success: false,
-      errors: [{ msg: "Invalid credentials" }] 
-    });
+    return res.status(400).json({ success: false, msg: "Invalid credentials." });
   }
 
-  // Compare the password with the hashed one
   const isMatch = await bcrypt.compare(password, user.password);
-
   if (!isMatch) {
-    return res.status(400).json({
-      success: false,
-      errors: [{ msg: "Invalid credentials" }] // Changed message to "Invalid credentials"
-    });
+    return res.status(400).json({ success: false, msg: "Invalid credentials." });
   }
 
-  // Create JWT token
-  const payload = { userId: user.userId, email }; // Use the found user's userId
-  const secret = process.env.JWT_SECRET_KEY;
-
-  const token = jwt.sign(payload, secret, { expiresIn: '1h' }); // Create the token
-
-  // Send the response with token
   res.json({
     success: true,
     msg: "User logged in successfully!",
-    token
+    token: generateToken(user.userId, email)
   });
 };
 
-module.exports = { signup, login };
+// Google Auth Success
+const googleAuthSuccess = (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ success: false, msg: "Not authorized." });
+  }
+
+  const token = generateToken(req.user.userId, req.user.email);
+  res.json({ success: true, msg: "Google Auth successful!", token });
+};
+
+module.exports = { signup, login, googleAuthSuccess };
