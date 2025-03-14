@@ -24,7 +24,7 @@ router.get('/auth/google/callback', passport.authenticate('google', { session: f
       success: true,
       token: req.user.token, // Send the token
       user: {
-          userId: req.user.userId,
+          userId: req.user.userId ,
           fullname: req.user.fullname,
           email: req.user.email
       }

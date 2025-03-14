@@ -7,6 +7,8 @@ const users = [
     password: "123456",  // Use plain text for now, hash later
   }
 ];
+
+
 const tasks = {
   "user1@email.com": [
     { taskId: 1, userId: 1, title: "Complete React project", description: "Finish the dashboard UI", completed: false, dueDate: "2025-03-15" },
