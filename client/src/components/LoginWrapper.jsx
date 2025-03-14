@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/login.css';
 import { google } from '../assets/icons/icons';
 import { signup, login } from '../api/authServices';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function LoginWrapper() {
   const [isLogin, setIsLogin] = useState(true);
@@ -18,49 +18,50 @@ function LoginWrapper() {
     setError(null);
 
     if (!email || !password) {
-      setError('Email and password are required.');
+      setError("Email and password are required.");
       return;
     }
 
     if (!isLogin && (!fullName || password !== confirmPassword)) {
-      setError('Please fill in all fields correctly.');
+      setError("Please fill in all fields correctly.");
       return;
     }
 
     try {
       if (isLogin) {
         const response = await login(email, password);
-        console.log('Login successful:', response);
+        console.log("Login successful:", response);
 
-        if (document.getElementById('rememberMe').checked) {
-          localStorage.setItem('email', email);
+        if (document.getElementById("rememberMe").checked) {
+          localStorage.setItem("email", email);
         } else {
-          localStorage.removeItem('email');
+          localStorage.removeItem("email");
         }
 
-        navigate('/dashboard');
+        navigate("/dashboard");
       } else {
         const response = await signup(fullName, email, password);
-        console.log('Signup successful:', response);
+        console.log("Signup successful:", response);
       }
     } catch (error) {
-      console.error('Auth Error:', error.message);
-      setError(isLogin ? 'Login failed. Try again.' : 'Signup failed. Try again.');
+      console.error("Auth Error:", error.message);
+      setError(isLogin ? "Login failed. Try again." : "Signup failed. Try again.");
     }
   };
 
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/auth/google';
+  const handleGoogleLogin = (e) => {
+    e.preventDefault(); // Prevent form submission
+    window.location.href = "http://localhost:5000/auth/google/callback";
   };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
+    const token = params.get("token");
 
     if (token) {
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
       console.log(token);
-      navigate('/dashboard');
+      navigate("/dashboard");
     }
   }, [navigate]);
 
@@ -70,7 +71,7 @@ function LoginWrapper() {
 
       <button className="google-login-btn" onClick={handleGoogleLogin} type="button">
         <img src={google} alt="google-icon" className="google-icon" />
-        {isLogin ? 'Login' : 'Sign Up'} with Google
+        {isLogin ? "Login" : "Sign Up"} with Google
       </button>
       <p className="divider-text">or</p>
 
@@ -138,7 +139,7 @@ function LoginWrapper() {
       )}
 
       <button type="submit" className="login-btn">
-        {isLogin ? 'Log in' : 'Sign Up'}
+        {isLogin ? "Log in" : "Sign Up"}
       </button>
 
       <div>
