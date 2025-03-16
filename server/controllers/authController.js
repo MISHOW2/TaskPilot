@@ -41,8 +41,8 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password,fullName } = req.body;
-  const user = users.find(user => user.email === email); // Find user by email
+  const { email, password } = req.body;
+  const user = users.find(user => user.email === email);
 
   if (!user) {
     return res.status(400).json({
@@ -51,29 +51,25 @@ const login = async (req, res) => {
     });
   }
 
-  // Compare the password with the hashed one
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
     return res.status(400).json({
       success: false,
-      errors: [{ msg: "Invalid credentials" }] // Changed message to "Invalid credentials"
+      errors: [{ msg: "Invalid credentials" }]
     });
   }
 
-  // Create JWT token
-  const payload = { userId: user.userId, email }; // Use the found user's userId
-  const secret = process.env.JWT_SECRET_KEY;
+  const payload = { userId: user.userId, email };
+  const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
 
-  const token = jwt.sign(payload, secret, { expiresIn: '1h' }); // Create the token
-
-  // Send the response with token
   res.json({
     success: true,
     msg: "User logged in successfully!",
     token,
-    user
+    user: { fullName: user.fullName, email: user.email }
   });
 };
+
 
 module.exports = { signup, login };
