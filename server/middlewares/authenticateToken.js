@@ -4,7 +4,7 @@ const authenticateToken = (req, res, next) => {
     const authHeader = req.header('Authorization');
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ success: false, msg: 'Access Denied. No token provided.' });
+        return res.status(401).json({ success: false, msg: 'Access Denied. Token not found.' });
     }
 
     const token = authHeader.split(' ')[1];

@@ -1,0 +1,60 @@
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.left-side{
+  display: flex;
+  align-items: top;
+  gap: 105px;
+}
+
+.logo{
+color: #1F9BF3;
+font-size:28px;
+font-weight: bold;
+}
+
+.user{
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.user p{
+  padding: 0;
+  margin: 0;
+ 
+}
+.welcome{
+  font-size:16px;
+  font-weight: bold;
+}
+.user-welcome-date{
+  font-size: 12px;
+}
+
+
+.right-side{
+  display: flex;
+  gap: 25px;
+}
+
+.searchbar {
+  width: 234px;
+  height: 23px;
+  
+  border: 3px solid; /* Make the border transparent */
+  border-image: linear-gradient(to right, #0A3BA6, #458E9E, #94217F) 1; /* Apply the gradient to the border */
+
+  font-size: 14px;
+}
+
+.nav-img-icon{
+  display: flex;
+  gap: 3px;
+}
+.nav-img-icon img{
+ height: 30px;
+}

@@ -34,12 +34,14 @@ const signup = async (req, res) => {
   res.json({
     success: true,
     msg: "User registered successfully!",
-    token
+    token,
+    user
+    
   });
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password,fullName } = req.body;
   const user = users.find(user => user.email === email); // Find user by email
 
   if (!user) {
@@ -69,7 +71,8 @@ const login = async (req, res) => {
   res.json({
     success: true,
     msg: "User logged in successfully!",
-    token
+    token,
+    user
   });
 };
 
