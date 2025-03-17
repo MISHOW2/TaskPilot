@@ -1,0 +1,70 @@
+.tasklayout{
+  display: flex;
+  flex-direction: column;
+  width: 754px;
+}
+
+
+.task-flex{
+  display: flex ;
+  gap: 10px;
+}
+
+.task-left{
+  display: flex;
+  flex-direction: column;
+  width: 194px;
+  padding:20PX ;
+  background-color:#D9A3A3 ;
+  justify-content: center;
+
+
+}
+.task-left-box{
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  justify-content: center;
+}
+.task-left-box img{
+  width: 58px;
+  height: 97px;
+}
+
+.task{
+  width: 194px;
+  height: 100%;
+}
+
+.task-left button{
+  color: white;
+  width: 154px;
+  height: 39px;
+  border-radius: 10px;
+  border: none;
+  background-color: hsla(0, 0%, 0%, 0.50);
+}
+
+.task-checklist{
+  width:513px ;
+  border-radius: 10px;
+  display: flex;
+  gap: 58px;
+  background-color: white;
+  justify-content:  center ;
+  align-items: center;
+  text-align: center;
+
+}
+
+.task-checklist {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.452);
+}
+
+.checkLeft{
+  font-size: 32px;
+  color: black;
+  margin: 0;
+  font-weight: bold;
+}
