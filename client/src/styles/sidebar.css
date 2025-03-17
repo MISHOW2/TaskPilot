@@ -1,0 +1,17 @@
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  gap: 162px;
+}
+
+ ul{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+ a{
+  color: black;
+  text-decoration: none;
+}

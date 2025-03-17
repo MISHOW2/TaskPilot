@@ -18,7 +18,7 @@ passport.use(
 
         if (!user) {
           user = await addUser({
-            fullname: profile.displayName,
+            fullname: profile.displayName, // ✅ Store full name
             email: profile.emails[0].value,
             password: null, // No password for OAuth users
           });
@@ -26,7 +26,7 @@ passport.use(
 
         // Generate JWT token
         const token = jwt.sign(
-          { userId: user.userId, email: user.email },
+          { userId: user.userId, email: user.email, fullName: user.fullname }, // ✅ Include fullName
           process.env.JWT_SECRET_KEY,
           { expiresIn: '1h' }
         );

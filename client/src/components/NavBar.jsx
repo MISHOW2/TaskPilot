@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 import '../styles/navbar.css';
 import bell from '../assets/icons/icons8-bell-40.png';
 import user from '../assets/icons/icons8-user-50.png';
 
 function NavBar() {
-  const today = new Date().toLocaleDateString(); // Formats the date
+  const today = new Date().toLocaleDateString();
+  const [fullName, setFullName] = useState("Guest");
 
-  const [fullName, setFullName] = useState("");
+  const navigate = useNavigate(); // ✅ Define navigate
 
   useEffect(() => {
-    // Fetch the logged-in user's name from local storage
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
+    if (storedUser && storedUser.fullName) {
       setFullName(storedUser.fullName);
     }
   }, []);
@@ -21,16 +22,22 @@ function NavBar() {
       <div className="left-side">
         <div className="logo">TaskPilot</div>
         <div className="user">
-          <p className="welcome">Welcome back, {fullName || "Guest"}</p>
+          <p className="welcome">Welcome back, {fullName}</p>
           <p className="user-welcome-date">{today}</p>
         </div>
       </div>
       <div className="right-side">
-        <input 
+      {
+        /**
+         * 
+          <input 
           type="text"
           placeholder="Search..."
           className="searchbar"
         />
+        */
+      } 
+      
         <div className="nav-img-icon">
           <img src={bell} alt="Notifications" />
           <img src={user} alt="User" />

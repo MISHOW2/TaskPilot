@@ -11,11 +11,13 @@ function LoginWrapper() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
 
     if (!email || !password) {
       setError("Email and password are required.");
@@ -40,8 +42,13 @@ function LoginWrapper() {
 
         navigate("/dashboard");
       } else {
-        const response = await signup(fullName, email, password);
-        console.log("Signup successful:", response);
+        await signup(fullName, email, password);
+        setSuccess("Signup successful! Redirecting to login...");
+
+        setTimeout(() => {
+          setIsLogin(true);  // ✅ Switch to login form
+          setSuccess(null);  // ✅ Clear success message immediately
+        }, 2000);
       }
     } catch (error) {
       console.error("Auth Error:", error.message);
@@ -50,8 +57,8 @@ function LoginWrapper() {
   };
 
   const handleGoogleLogin = (e) => {
-    e.preventDefault(); // Prevent form submission
-    window.location.href = "http://localhost:5000/auth/google/callback";
+    e.preventDefault(); 
+    window.location.href = "http://localhost:5000/auth/google";
   };
 
   useEffect(() => {
@@ -68,6 +75,7 @@ function LoginWrapper() {
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>} 
 
       <button className="google-login-btn" onClick={handleGoogleLogin} type="button">
         <img src={google} alt="google-icon" className="google-icon" />
