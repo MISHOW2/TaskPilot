@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 754px;
+
 }
 
 
@@ -25,6 +26,7 @@
   align-items: center;
   gap: 2px;
   justify-content: center;
+  border-radius: 10px;
 }
 .task-left-box img{
   width: 58px;
@@ -34,6 +36,7 @@
 .task{
   width: 194px;
   height: 100%;
+
 }
 
 .task-left button{
@@ -67,4 +70,62 @@
   color: black;
   margin: 0;
   font-weight: bold;
+}
+
+.task-list-flex{
+  width: 234px;
+  height: 178px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  justify-content:center ;
+  align-items: left;
+  gap:36px ;
+  padding-left: 10px;
+  box-shadow: 5px 5px rgba(0, 0, 0, 0.459) ;
+  cursor: pointer;
+}
+
+.task-info{
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+p{
+  margin: 0px;
+}
+
+.task-container{
+  display: flex;
+  margin-top: 50px;
+  justify-content:space-evenly ;
+
+}
+.p-date{
+  color: rgba(0, 0, 0, 0.418);
+  font-size: 13px;
+
+}
+
+
+.heading{
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+.subHeading{
+  font-size: 14px;
+}
+
+.days-left{
+  width: 83px;
+  height: 18px;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+  background-color: #B44BF1;
+  
 }

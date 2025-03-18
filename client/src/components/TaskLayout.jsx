@@ -3,6 +3,8 @@ import taskImg from "../assets/llustrations/6850064.jpg"
 import '../styles/taskLayout.css'
 import {done,inprogress,synch} from '../assets/icons/icons'
 function TaskLayout() {
+
+
   return (
     <div className='task-layout'>
      <div className="task-flex">
@@ -37,6 +39,40 @@ function TaskLayout() {
           </div>
       </div>
      </div>
+
+    <div className="task-container">
+    <div className="task-list-flex">
+      <div className='task-info'>
+      <p className='p-date'>02 mar 2025</p>
+      <p className='heading'>Web development</p>
+      <p className='subHeading'>design</p>
+      </div>
+      <div>
+         <p className='days-left'>3 days left</p>
+        </div>          
+     </div>
+     <div className="task-list-flex">
+      <div className='task-info'>
+      <p className='p-date'>02 mar 2025</p>
+      <p className='heading'>Web development</p>
+      <p className='subHeading'>design</p>
+      </div>
+      <div>
+         <p className='days-left'>3 days left</p>
+        </div>          
+     </div>
+     
+     <div className="task-list-flex">
+      <div className='task-info'>
+      <p className='p-date'>02 mar 2025</p>
+      <p className='heading'>Web development</p>
+      <p className='subHeading'>design</p>
+      </div>
+      <div>
+         <p className='days-left'>3 days left</p>
+        </div>          
+     </div>
+    </div>
     </div>
   )
 }
